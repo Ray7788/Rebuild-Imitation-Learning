@@ -10,8 +10,11 @@ In complicated tasks such as Go and Atari games, imitation learning is often use
 FinRL_Imitation_Learning
 ├── Data
 |   ├──merged.csv
+|   |──full.csv
 |   └──train_data.csv
 |   └──trade_data.csv
+|   └──train_tech.csv
+|   └──trade_tech.csv
 └── StockPortfolioEnv.py
 └── Stock_Selection.ipynb
 └── Weight_Initialization.ipynb
@@ -28,7 +31,14 @@ FinRL_Imitation_Learning
 
 **1-Stock Selection**
 
-Identify a pool of stocks that are not only favoured by retail investors, but also exist a high correlation between their trading preference and return rates. 
+- Initial data: daily price data of selected XLK constitutes with technical indicators.
+ Our picked sample stocks are 
+```
+{"QCOM", "ADSK", "FSLR", "MSFT", "AMD", "ORCL", "INTU", "WU", "LRCX", "TXN", "CSCO"}
+```
+Mean variance optimization weights available. Splitted into train and trade(test) periods.
+
+- Later stage: Identify a pool of stocks that are not only favoured by retail investors, but also exist a high correlation between their trading preference and return rates. 
 
 **2-Weight Initialization**
 
@@ -40,6 +50,12 @@ We use a set of regression models, including linear models, trees, and neural ne
 
 To ensure the reliability, we conduct a placebo test to evaluate the potential for information leakage. This involves feeding simulated data into our models to assess their performance in predicting outcomes that are not based on actual data. By doing so, we can ensure that our models are not biased by any unforeseen factors or hidden information that may have influenced the results.
 
+## Demo & Development Plan
+Retail Market Order Imbalance: historical files(now is deleted)
+Stock_Selection: data source and how we pick our stocks
+Weight_Initialization: feature various weight allocation methods, such as mean-variance and rank-based methods
+Imitation_Sandbox: supervised learning with our task
+test.py: statistical tests on retail trade imbalance with return rates
 
 ## Performance
 Table: Trading Performance of fitted models in train period.
@@ -51,3 +67,16 @@ Table: Trading Performance of fitted models in train period.
 | Annual volatility | 0.246  | 0.246         | 0.249 | 0.248      | 0.249               |
 | Sharpe ratio   | 0.509  | 0.508         | 0.751 | 0.790      | 0.803               |
 | Max drawdown   | -0.509 | -0.509        | -0.421| -0.420     | -0.411              |
+
+## Scripts
+`utils.py`: replay buffer implementation.
+`TD3_BC.py`: TD3 implementation with behaviour cloning (BC) regularization.
+`StockPortfolioEnv.py`: gym-style environment for asset allocation.
+`requirements.txt`: essential packages with detailed versions
+
+## Contributing
+We welcome contributions from the community. Feel free to fork the repository, make improvements, and create pull requests. 
+if you have questions please contact ray778@foxmail.com
+
+## Copyrights
+Thanks `AI4Finance-Foundation` for providing this opportunity.
